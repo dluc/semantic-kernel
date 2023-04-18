@@ -29,8 +29,27 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <PackageCopyToOutput>true</PackageCopyToOutput>
     </Content>
+
     <None Remove="Tokenizers\Settings\vocab.bpe" />
     <Content Include="Tokenizers\Settings\vocab.bpe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
+
+    <None Remove="Tokenizers2\Settings\cl100k_base.tiktoken" />
+    <Content Include="Tokenizers2\Settings\cl100k_base.tiktoken">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
+
+    <None Remove="Tokenizers2\Settings\p50k_base.tiktoken" />
+    <Content Include="Tokenizers2\Settings\p50k_base.tiktoken">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
+
+    <None Remove="Tokenizers2\Settings\r50k_base.tiktoken" />
+    <Content Include="Tokenizers2\Settings\r50k_base.tiktoken">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <PackageCopyToOutput>true</PackageCopyToOutput>
     </Content>

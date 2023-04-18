@@ -1,33 +1,38 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
-namespace Microsoft.SemanticKernel.Connectors.AI.OpenAI.Tokenizers.Settings;
+namespace Microsoft.SemanticKernel.Connectors.AI.OpenAI.Tokenizers2.Settings;
 
-internal static class EmbeddedResource
+public static class EmbeddedResource
 {
     // This is usually the assembly name, if the project follows the naming conventions about namespaces and assembly names
     private const string PrefixToIgnore = "Microsoft.SemanticKernel.Connectors.AI.OpenAI";
 
     private static readonly string s_namespace = typeof(EmbeddedResource).Namespace;
 
-    /// <summary>
-    /// Return content of BPE file.
-    /// </summary>
-    /// <returns>BPE file content</returns>
-    internal static string ReadBytePairEncodingTable()
+    public static Dictionary<byte[], int> LoadTokenBytePairEncoding(string dataSourceName)
     {
-        return ReadFile("vocab.bpe");
+        var contents = ReadEmbeddedResourceAsLines(dataSourceName)
+            .Where(line => !string.IsNullOrEmpty(line))
+            .Select(line => line.Split(' ', StringSplitOptions.RemoveEmptyEntries))
+            .ToArray();
+
+        return contents.ToDictionary(
+            splitLine => Convert.FromBase64String(splitLine[0]),
+            splitLine => int.Parse(splitLine[1], CultureInfo.InvariantCulture)
+        );
     }
 
-    /// <summary>
-    /// Return content of encoding table file.
-    /// </summary>
-    /// <returns>Encoding table string</returns>
-    internal static string ReadEncodingTable()
+    private static IList<string> ReadEmbeddedResourceAsLines(string resourceName)
     {
-        return ReadFile("encoder.json");
+        var content = ReadFile(resourceName);
+        return content.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
     }
 
     /// <summary>
