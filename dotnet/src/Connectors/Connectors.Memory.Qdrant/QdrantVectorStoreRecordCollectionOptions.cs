@@ -33,4 +33,12 @@ public sealed class QdrantVectorStoreRecordCollectionOptions<TRecord>
     /// See <see cref="VectorStoreRecordKeyAttribute"/>, <see cref="VectorStoreRecordDataAttribute"/> and <see cref="VectorStoreRecordVectorAttribute"/>.
     /// </remarks>
     public VectorStoreRecordDefinition? VectorStoreRecordDefinition { get; init; } = null;
+
+    /// <summary>
+    /// Optional override of the default filter translator.
+    /// <remarks>
+    /// If not set, the default translator <see cref="QdrantFilterTranslator"/> will be used.
+    /// </remarks>
+    /// </summary>
+    public IQdrantFilterTranslator? FilterTranslator { get; init; } = null;
 }

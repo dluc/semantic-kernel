@@ -20,4 +20,12 @@ public sealed class QdrantVectorStoreOptions
     /// </summary>
     [Obsolete("To control how collections are instantiated, extend your provider's IVectorStore implementation and override GetCollection()")]
     public IQdrantVectorStoreRecordCollectionFactory? VectorStoreCollectionFactory { get; init; }
+
+    /// <summary>
+    /// Optional override of the default filter translator.
+    /// <remarks>
+    /// If not set, the default translator <see cref="QdrantFilterTranslator"/> will be used.
+    /// </remarks>
+    /// </summary>
+    public IQdrantFilterTranslator? FilterTranslator { get; init; } = null;
 }

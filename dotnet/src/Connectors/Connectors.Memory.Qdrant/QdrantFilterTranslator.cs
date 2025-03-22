@@ -15,12 +15,17 @@ using Range = Qdrant.Client.Grpc.Range;
 
 namespace Microsoft.SemanticKernel.Connectors.Qdrant;
 
-internal class QdrantFilterTranslator
+public interface IQdrantFilterTranslator
+{
+    Filter Translate(LambdaExpression lambdaExpression, IReadOnlyDictionary<string, string> storagePropertyNames);
+}
+
+internal class QdrantFilterTranslator : IQdrantFilterTranslator
 {
     private IReadOnlyDictionary<string, string> _storagePropertyNames = null!;
     private ParameterExpression _recordParameter = null!;
 
-    internal Filter Translate(LambdaExpression lambdaExpression, IReadOnlyDictionary<string, string> storagePropertyNames)
+    public Filter Translate(LambdaExpression lambdaExpression, IReadOnlyDictionary<string, string> storagePropertyNames)
     {
         this._storagePropertyNames = storagePropertyNames;
 

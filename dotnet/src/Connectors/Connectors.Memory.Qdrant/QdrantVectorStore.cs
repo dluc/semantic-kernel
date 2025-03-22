@@ -69,7 +69,8 @@ public class QdrantVectorStore : IVectorStore
         var recordCollection = new QdrantVectorStoreRecordCollection<TRecord>(this._qdrantClient, name, new QdrantVectorStoreRecordCollectionOptions<TRecord>()
         {
             HasNamedVectors = this._options.HasNamedVectors,
-            VectorStoreRecordDefinition = vectorStoreRecordDefinition
+            VectorStoreRecordDefinition = vectorStoreRecordDefinition,
+            FilterTranslator = this._options.FilterTranslator
         });
         var castRecordCollection = recordCollection as IVectorStoreRecordCollection<TKey, TRecord>;
         return castRecordCollection!;

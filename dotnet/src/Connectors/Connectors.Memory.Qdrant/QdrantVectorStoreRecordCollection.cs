@@ -493,7 +493,7 @@ public class QdrantVectorStoreRecordCollection<TRecord> :
         {
             { OldFilter: not null, Filter: not null } => throw new ArgumentException("Either Filter or OldFilter can be specified, but not both"),
             { OldFilter: VectorSearchFilter legacyFilter } => QdrantVectorStoreCollectionSearchMapping.BuildFromLegacyFilter(legacyFilter, this._propertyReader.StoragePropertyNamesMap),
-            { Filter: Expression<Func<TRecord, bool>> newFilter } => new QdrantFilterTranslator().Translate(newFilter, this._propertyReader.StoragePropertyNamesMap),
+            { Filter: Expression<Func<TRecord, bool>> newFilter } => (this._options.FilterTranslator ?? new QdrantFilterTranslator()).Translate(newFilter, this._propertyReader.StoragePropertyNamesMap),
             _ => new Filter()
         };
 #pragma warning restore CS0618 // Type or member is obsolete
